@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Cart</h3>
+{% for i in items %}
+<div class="d-flex align-items-center border p-2 mb-2">
+    <img src="{{ i.product.image.url }}" style="width:80px;height:80px;object-fit:cover" class="me-2">
+    <div class="flex-grow-1">
+        <h6 class="mb-1">{{ i.product.name }}</h6>
+        <p class="small text-muted mb-0">₹ {{ i.product.price }}</p>
+    </div>
+    <a class="btn btn-sm btn-danger" href="/remove-cart/{{ i.id }}/">Delete</a>
+</div>
+{% empty %}
+<p>Your cart is empty</p>
+{% endfor %}
+<h5 class="mt-3">Total: ₹ {{ total }}</h5>
+{% endblock %}

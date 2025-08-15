@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Cart</h3>
+<table class="table table-bordered align-middle">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in items %}
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="{{ i.product.image.url }}" style="width:60px;height:60px;object-fit:cover" class="me-2">
+            {{ i.product.name }}
+          </div>
+        </td>
+        <td>{{ i.quantity }}</td>
+        <td>₹ {{ i.product.price }}</td>
+        <td>₹ {{ i.subtotal }}</td>
+        <td>
+          <a class="btn btn-sm btn-danger" href="/remove-cart/{{ i.id }}/">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">Your cart is empty</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="text-end">
+  <h5>Total: ₹ {{ total }}</h5>
+</div>
+{% endblock %}

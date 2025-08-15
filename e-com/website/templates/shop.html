@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="mb-3">
+  <a href="{% url 'shop' %}" class="btn btn-secondary btn-sm">All</a>
+  <a href="{% url 'shop' %}?category=laptop" class="btn btn-primary btn-sm">Laptops</a>
+  <a href="{% url 'shop' %}?category=mobiles" class="btn btn-primary btn-sm">Mobiles</a>
+  <a href="{% url 'shop' %}?category=watches" class="btn btn-primary btn-sm">Watches</a>
+  <a href="{% url 'shop' %}?category=Headphones" class="btn btn-primary btn-sm">Headphones</a>
+</div>
+
+<form method="GET" class="mb-3">
+  <input type="text" name="q" placeholder="Search..." class="form-control" value="{{ request.GET.q }}">
+</form>
+
+<div class="row">
+{% for product in products %}
+  <div class="col-md-3 mb-3">
+    <div class="card">
+      <img src="{product.image }" class="card-img-top" alt="{{ product.name }}">
+      <div class="card-body">
+        <h5>{{ product.name }}</h5>
+        <p>{{ product.description }}</p>
+        <p>₹{{ product.price }}</p>
+        {% if request.session.user_id %}
+          <a href="{% url 'add_to_cart' product.id %}" class="btn btn-sm btn-success">Add to Cart</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-sm btn-warning">Login to Buy</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <p>No products found.</p>
+{% endfor %}
+</div>
+{%endblock%}
+
+
+
+
+
+
+
+
+
+

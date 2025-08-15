@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% block title %}Your Cart{% endblock %}
+{% block content %}
+<h1>Your Cart</h1>
+{% if cart_items %}
+    <div class="row">
+        {% for item in cart_items %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="{ item.image }" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p>{{ item.description }}</p>
+                        <p class="fw-bold text-primary">₹{{ item.price }}</p>
+                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger w-100">Remove</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+<a href="{% url 'shop' %}" class="btn btn-secondary mt-3">Back to Shop</a>
+{% endblock %}
